@@ -11,7 +11,7 @@ Here is a link to the deployed webpage: []
 3)
 
 ## Programs 
-Javascript, SQL, Node.js, JSON, Terminal
+Javascript, MySQL, Node.js, JSON, Terminal
 
 ## Author/s
 Caleb Chaney

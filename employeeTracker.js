@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const cTable = require("console.table");
 
 // Create the connection information for the sql database
 let connection = mysql.createConnection({
@@ -31,6 +32,7 @@ function startApp() {
                     "Add a Department",
                     "View all Roles",
                     "Add a Role",
+                    "Exit"
                 ]
         })
         .then(function (answer) {
@@ -58,5 +60,138 @@ function startApp() {
             else {
                 connection.end();
             }
+        });
+}
+
+function viewEmployees() {
+    inquirer
+        .prompt({
+            name: "employees",
+            type: "list",
+            message: "What would you like to do?",
+            choices:
+                ["View all Employees",
+                    "Add Employee",
+                    "Update Employee Role",
+                    "View all Departments",
+                    "Add a Department",
+                    "View all Roles",
+                    "Add a Role",
+                    "Exit"
+                ]
+        });
+}
+
+function addEmployee() {
+    inquirer
+        .prompt({
+            name: "employees",
+            type: "list",
+            message: "What would you like to do?",
+            choices:
+                ["View all Employees",
+                    "Add Employee",
+                    "Update Employee Role",
+                    "View all Departments",
+                    "Add a Department",
+                    "View all Roles",
+                    "Add a Role",
+                    "Exit"
+                ]
+        });
+}
+
+function updateRole() {
+    inquirer
+        .prompt({
+            name: "employees",
+            type: "list",
+            message: "What would you like to do?",
+            choices:
+                ["View all Employees",
+                    "Add Employee",
+                    "Update Employee Role",
+                    "View all Departments",
+                    "Add a Department",
+                    "View all Roles",
+                    "Add a Role",
+                    "Exit"
+                ]
+        });
+}
+
+function viewDepartments() {
+    inquirer
+        .prompt({
+            name: "employees",
+            type: "list",
+            message: "What would you like to do?",
+            choices:
+                ["View all Employees",
+                    "Add Employee",
+                    "Update Employee Role",
+                    "View all Departments",
+                    "Add a Department",
+                    "View all Roles",
+                    "Add a Role",
+                    "Exit"
+                ]
+        });
+}
+
+function addDepartment() {
+    inquirer
+        .prompt({
+            name: "employees",
+            type: "list",
+            message: "What would you like to do?",
+            choices:
+                ["View all Employees",
+                    "Add Employee",
+                    "Update Employee Role",
+                    "View all Departments",
+                    "Add a Department",
+                    "View all Roles",
+                    "Add a Role",
+                    "Exit"
+                ]
+        });
+}
+
+function viewRoles() {
+    inquirer
+        .prompt({
+            name: "employees",
+            type: "list",
+            message: "What would you like to do?",
+            choices:
+                ["View all Employees",
+                    "Add Employee",
+                    "Update Employee Role",
+                    "View all Departments",
+                    "Add a Department",
+                    "View all Roles",
+                    "Add a Role",
+                    "Exit"
+                ]
+        });
+}
+
+function addRole() {
+    inquirer
+        .prompt({
+            name: "employees",
+            type: "list",
+            message: "What would you like to do?",
+            choices:
+                ["View all Employees",
+                    "Add Employee",
+                    "Update Employee Role",
+                    "View all Departments",
+                    "Add a Department",
+                    "View all Roles",
+                    "Add a Role",
+                    "Exit"
+                ]
         });
 }
