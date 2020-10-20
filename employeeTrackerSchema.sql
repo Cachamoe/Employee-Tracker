@@ -12,7 +12,7 @@ CREATE TABLE role (
     id INTEGER AUTO_INCREMENT NOT NULL,
     title VARCHAR(30),
     salary DECIMAL,
-    --INT to hold reference to department role belongs to--
+    --INT to hold reference to department role--
     department_id INT,
     PRIMARY KEY (id)
 );
@@ -24,7 +24,7 @@ CREATE TABLE employee (
     PRIMARY KEY (id),
     --INT to hold reference to role employee has--
     role_id INT,
-    --INT to hold reference to another employee that manager of the current employee.--
+    --INT to hold reference to another employee that is the manager of the current employee.--
     --This field may be null if the employee has no manager--
     manager_id INT
 );

@@ -70,14 +70,8 @@ function viewEmployees() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
-                    "Add Employee",
-                    "Update Employee Role",
-                    "View all Departments",
-                    "Add a Department",
-                    "View all Roles",
-                    "Add a Role",
-                    "Exit"
+                [
+
                 ]
         });
 }
@@ -89,14 +83,8 @@ function addEmployee() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
-                    "Add Employee",
-                    "Update Employee Role",
-                    "View all Departments",
-                    "Add a Department",
-                    "View all Roles",
-                    "Add a Role",
-                    "Exit"
+                [
+
                 ]
         });
 }
@@ -108,14 +96,8 @@ function updateRole() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
-                    "Add Employee",
-                    "Update Employee Role",
-                    "View all Departments",
-                    "Add a Department",
-                    "View all Roles",
-                    "Add a Role",
-                    "Exit"
+                [
+
                 ]
         });
 }
@@ -127,14 +109,8 @@ function viewDepartments() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
-                    "Add Employee",
-                    "Update Employee Role",
-                    "View all Departments",
-                    "Add a Department",
-                    "View all Roles",
-                    "Add a Role",
-                    "Exit"
+                [
+
                 ]
         });
 }
@@ -146,14 +122,8 @@ function addDepartment() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
-                    "Add Employee",
-                    "Update Employee Role",
-                    "View all Departments",
-                    "Add a Department",
-                    "View all Roles",
-                    "Add a Role",
-                    "Exit"
+                [
+
                 ]
         });
 }
@@ -165,14 +135,8 @@ function viewRoles() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
-                    "Add Employee",
-                    "Update Employee Role",
-                    "View all Departments",
-                    "Add a Department",
-                    "View all Roles",
-                    "Add a Role",
-                    "Exit"
+                [
+
                 ]
         });
 }
@@ -184,14 +148,8 @@ function addRole() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
-                    "Add Employee",
-                    "Update Employee Role",
-                    "View all Departments",
-                    "Add a Department",
-                    "View all Roles",
-                    "Add a Role",
-                    "Exit"
+                [
+
                 ]
         });
 }
