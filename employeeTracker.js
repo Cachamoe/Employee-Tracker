@@ -13,14 +13,14 @@ let connection = mysql.createConnection({
 // Connect to mysql server and sql database
 connection.connect(function (err) {
     if (err) throw err;
-    start();
+    startApp();
 });
 
 // Function for starting application
-function start() {
+function startApp() {
     inquirer
         .prompt({
-            name: "",
+            name: "business",
             type: "list",
             message: "What would you like to do?",
             choices:
@@ -34,25 +34,25 @@ function start() {
                 ]
         })
         .then(function (answer) {
-            if (answer.choices[0]) {
+            if (answer.business === "View all Employees") {
                 viewEmployees();
             }
-            else if (answer.choices[1]) {
+            else if (answer.business === "Add Employee") {
                 addEmployee();
             }
-            else if (answer.choices[2]) {
+            else if (answer.business === "Update Employee Role") {
                 updateRole();
             }
-            else if (answer.choices[3]) {
+            else if (answer.business === "View all Departments") {
                 viewDepartments();
             }
-            else if (answer.choices[4]) {
+            else if (answer.business === "Add a Department") {
                 addDepartment();
             }
-            else if (answer.choices[5]) {
+            else if (answer.business === "View all Roles") {
                 viewRoles();
             }
-            else if (answer.choices[6]) {
+            else if (answer.business === "Add a Role") {
                 addRole();
             }
             else {
