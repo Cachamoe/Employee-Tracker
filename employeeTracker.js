@@ -65,16 +65,16 @@ function startApp() {
 }
 
 function viewEmployees() {
-    inquirer
-        .prompt({
-            name: "employees",
-            type: "input",
-            message: "What would you like to do?",
-            choices:
-                [
+    let query = "SELECT * FROM employee";
+    connection.query(query, function (err, res) {
+        let employeeList = [],
+        for (var i = 0; i < res.length; i++) {
+            employeeList.push(res[i].first_name, res[i].last_name),
 
-                ]
-        });
+                console.table([employeeList]);
+        }
+    });
+    startApp();
 }
 
 function addEmployee() {
@@ -117,16 +117,15 @@ function updateRole() {
 }
 
 function viewDepartments() {
-    inquirer
-        .prompt({
-            name: "employees",
-            type: "list",
-            message: "What would you like to do?",
-            choices:
-                [
+    let query = "SELECT * FROM department";
+    connection.query(query, function (err, res) {
+        let departmentList = [],
+        for (var i = 0; i < res.length; i++) {
+            departmentList.push(res[i].name),
 
-                ]
-        });
+                console.table([departmentList]);
+        }
+    });
     startApp();
 }
 
@@ -150,16 +149,15 @@ function addDepartment() {
 }
 
 function viewRoles() {
-    inquirer
-        .prompt({
-            name: "employees",
-            type: "list",
-            message: "What would you like to do?",
-            choices:
-                [
+    let query = "SELECT * FROM roles";
+    connection.query(query, function (err, res) {
+        let roleList = [],
+        for (var i = 0; i < res.length; i++) {
+            roleList.push(res[i].title, res[i].salary),
 
-                ]
-        });
+                console.table([roleList]);
+        }
+    });
     startApp();
 }
 
