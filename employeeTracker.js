@@ -99,6 +99,7 @@ function addEmployee() {
                 }
             );
         });
+    startApp();
 }
 
 function updateRole() {
@@ -112,6 +113,7 @@ function updateRole() {
 
                 ]
         });
+    startApp();
 }
 
 function viewDepartments() {
@@ -125,6 +127,7 @@ function viewDepartments() {
 
                 ]
         });
+    startApp();
 }
 
 function addDepartment() {
@@ -143,6 +146,7 @@ function addDepartment() {
                 }
             );
         });
+    startApp();
 }
 
 function viewRoles() {
@@ -156,28 +160,30 @@ function viewRoles() {
 
                 ]
         });
+    startApp();
 }
 
 function addRole() {
     inquirer
-    .prompt([
-        {
-            name: "title",
-            type: "input",
-            message: "What is the role title?"
-        },
-        {
-            name: "salary",
-            type: "input",
-            message: "What is the role salary?"
-        }
-    ]).then(function (answer) {
+        .prompt([
+            {
+                name: "title",
+                type: "input",
+                message: "What is the role title?"
+            },
+            {
+                name: "salary",
+                type: "input",
+                message: "What is the role salary?"
+            }
+        ]).then(function (answer) {
             connection.query(
-                "INSERT INTO employee SET ?",
+                "INSERT INTO role SET ?",
                 {
                     title: answer.title,
                     salary: answer.salary,
                 },
             );
         });
+    startApp();
 }
