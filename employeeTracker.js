@@ -25,7 +25,8 @@ function startApp() {
             type: "list",
             message: "What would you like to do?",
             choices:
-                ["View all Employees",
+                [
+                    "View all Employees",
                     "Add Employee",
                     "Update Employee Role",
                     "View all Departments",
@@ -67,7 +68,7 @@ function viewEmployees() {
     inquirer
         .prompt({
             name: "employees",
-            type: "list",
+            type: "input",
             message: "What would you like to do?",
             choices:
                 [
@@ -78,14 +79,25 @@ function viewEmployees() {
 
 function addEmployee() {
     inquirer
-        .prompt({
-            name: "employees",
-            type: "list",
-            message: "What would you like to do?",
-            choices:
-                [
-
-                ]
+        .prompt([
+            {
+                name: "firstName",
+                type: "input",
+                message: "What is the employee's first name?"
+            },
+            {
+                name: "lastName",
+                type: "input",
+                message: "What is the employee's last name?"
+            }
+        ]).then(function (answer) {
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    first_name: answer.firstName,
+                    last_name: answer.lastName,
+                }
+            );
         });
 }
 
@@ -117,14 +129,19 @@ function viewDepartments() {
 
 function addDepartment() {
     inquirer
-        .prompt({
-            name: "employees",
-            type: "list",
-            message: "What would you like to do?",
-            choices:
-                [
-
-                ]
+        .prompt([
+            {
+                name: "departmentName",
+                type: "input",
+                message: "What is the new department?"
+            }
+        ]).then(function (answer) {
+            connection.query(
+                "INSERT INTO department SET ?",
+                {
+                    name: answer.departmentName,
+                }
+            );
         });
 }
 
@@ -143,13 +160,24 @@ function viewRoles() {
 
 function addRole() {
     inquirer
-        .prompt({
-            name: "employees",
-            type: "list",
-            message: "What would you like to do?",
-            choices:
-                [
-
-                ]
+    .prompt([
+        {
+            name: "title",
+            type: "input",
+            message: "What is the role title?"
+        },
+        {
+            name: "salary",
+            type: "input",
+            message: "What is the role salary?"
+        }
+    ]).then(function (answer) {
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    title: answer.title,
+                    salary: answer.salary,
+                },
+            );
         });
 }
