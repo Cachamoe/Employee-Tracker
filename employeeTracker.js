@@ -17,7 +17,8 @@ connection.connect(function (err) {
     startApp();
 });
 
-// Function for starting application
+// Function for starting application6
+
 function startApp() {
     inquirer
         .prompt({
@@ -103,16 +104,7 @@ function addEmployee() {
 }
 
 function updateRole() {
-    inquirer
-        .prompt({
-            name: "employees",
-            type: "list",
-            message: "What would you like to do?",
-            choices:
-                [
 
-                ]
-        });
     startApp();
 }
 
