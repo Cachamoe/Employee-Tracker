@@ -18,23 +18,23 @@ INSERT INTO employee (first_name, last_name) values ('Oscar', 'Martinez');
 INSERT INTO employee (first_name, last_name) values ('Meredith', 'Palmer');
 
 
-INSERT INTO role (title, salary) values ('Regional Manager', 75,000);
-INSERT INTO role (title, salary) values ('Sales', 55,000);
-INSERT INTO role (title, salary) values ('Secretary', 45,000);
-INSERT INTO role (title, salary) values ('Assistant to the Regional Manager', 60,000);
-INSERT INTO role (title, salary) values ('Lead Accountant', 60,000);
-INSERT INTO role (title, salary) values ('Accountant', 55,000);
-INSERT INTO role (title, salary) values ('Quality Control', 50,000);
-INSERT INTO role (title, salary) values ('Receptionist', 45,000);
-INSERT INTO role (title, salary) values ('Sales', 52,000);
-INSERT INTO role (title, salary) values ('Sales', 55,000);
-INSERT INTO role (title, salary) values ('Human Relations', 60,000);
-INSERT INTO role (title, salary) values ('Temp', 25,000);
-INSERT INTO role (title, salary) values ('Customer Relations', 47,000);
-INSERT INTO role (title, salary) values ('Warehouse', 40,000);
-INSERT INTO role (title, salary) values ('Sales', 55,000);
-INSERT INTO role (title, salary) values ('Lead Accountant', 60,000);
-INSERT INTO role (title, salary) values ('Supplier Relations', 58,000);
+INSERT INTO role (title, salary) values ('Regional Manager', 75000);
+INSERT INTO role (title, salary) values ('Sales', 55000);
+INSERT INTO role (title, salary) values ('Secretary', 45000);
+INSERT INTO role (title, salary) values ('Assistant Regional Manager', 60000);
+INSERT INTO role (title, salary) values ('Lead Accountant', 60000);
+INSERT INTO role (title, salary) values ('Accountant', 55000);
+INSERT INTO role (title, salary) values ('Quality Control', 50000);
+INSERT INTO role (title, salary) values ('Receptionist', 45000);
+INSERT INTO role (title, salary) values ('Sales', 52000);
+INSERT INTO role (title, salary) values ('Sales', 55000);
+INSERT INTO role (title, salary) values ('Human Relations', 60000);
+INSERT INTO role (title, salary) values ('Temp', 25000);
+INSERT INTO role (title, salary) values ('Customer Relations', 47000);
+INSERT INTO role (title, salary) values ('Warehouse', 40000);
+INSERT INTO role (title, salary) values ('Sales', 55000);
+INSERT INTO role (title, salary) values ('Lead Accountant', 60000);
+INSERT INTO role (title, salary) values ('Supplier Relations', 58000);
 
 
 INSERT INTO department (name) values ('Management');
