@@ -98,8 +98,24 @@ function addEmployee() {
             },
             {
                 name: "title",
-                type: "input",
+                type: "list",
                 message: "What is the employee's title?",
+                choices:
+                    [
+                        "Regional Manager",
+                        "Assistant Regional Manager",
+                        "Human Relations",
+                        "Lead Accountant",
+                        "Accountant",
+                        "Sales",
+                        "Quality Control",
+                        "Customer Relations",
+                        "Supplier Relations",
+                        "Secretary",
+                        "Receptionist",
+                        "Warehouse",
+                        "Temp"
+                    ]
             },
             {
                 name: "salary",
@@ -123,32 +139,83 @@ function addEmployee() {
                     ]
             },
         ]).then(function (answer) {
-            connection.query(
-                "INSERT INTO employee SET ?",
-                {
-                    first_name: answer.firstName,
-                    last_name: answer.lastName,
-                },
-                "INSERT INTO role SET ?",
-                {
-                    title: answer.title,
-                    salary: answer.salary,
-                },
-                "INSERT INTO department SET ?",
-                {
-                    department: answer.department,
-                },
-                function (err) {
+            let query = `
+        SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name department, CONCAT (employee2.first_name, " ", employee2.last_name) manager
+        FROM employee
+        LEFT JOIN role
+            ON employee.role_id = role.id
+        LEFT JOIN department
+            ON role.department_id = department.id
+        LEFT JOIN employee employee2
+            ON employee2.manager_id = employee.id
+        `;
+            connection.query(query, function (err, res) {
+                [
+                    "INSERT INTO employee SET ?",
+                    {
+                        first_name: answer.firstName,
+                        last_name: answer.lastName,
+                    },
+                    "INSERT INTO role SET ?",
+                    {
+                        title: answer.title,
+                        salary: answer.salary,
+                    },
+                    "INSERT INTO department SET ?",
+                    {
+                        department: answer.department,
+                    },
+                ]
+                console.log("\n\n"),
+                    console.table(res),
                     startApp();
-                }
-            );
+            });
         });
 }
 
-function updateRole() {
 
-    startApp();
+function updateRole() {
+    inquirer
+        .prompt([
+            {
+                name: "role",
+                type: "list",
+                message: "What is role you would like to update?",
+                choices:
+                    [
+                        "Regional Manager",
+                        "Assistant Regional Manager",
+                        "Human Relations",
+                        "Lead Accountant",
+                        "Accountant",
+                        "Sales",
+                        "Quality Control",
+                        "Customer Relations",
+                        "Supplier Relations",
+                        "Secretary",
+                        "Receptionist",
+                        "Warehouse",
+                        "Temp"
+                    ]
+            },
+        ]).then(function (answer) {
+            connection.query(query, function (err, res) {
+                (
+                    "UPDATE FROM role ?",
+                    {
+                        title: answer.title,
+                        last_name: answer.lastName,
+                    },
+                    function (err) {
+                        startApp();
+                    }
+                )
+            }
+            )
+        });
 }
+
+
 
 function viewDepartments() {
     let query = "SELECT * FROM department";
@@ -181,7 +248,7 @@ function addDepartment() {
 }
 
 function viewRoles() {
-    let query = "SELECT * FROM roles";
+    let query = "SELECT * FROM role";
     connection.query(query, function (err, res) {
         console.log("\n\n")
         console.table(res)
