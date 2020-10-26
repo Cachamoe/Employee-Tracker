@@ -14,7 +14,7 @@ INSERT INTO role (title, salary, department_id) values
 ('Regional Manager', 75000, 1),
 ('Sales', 55000, 3),
 ('Secretary', 45000, 6),
-('Assistant Regional Manager', 60000, 1),
+('Assistant Regional Manager', 60000, 3),
 ('Lead Accountant', 60000, 4),
 ('Accountant', 55000, 4),
 ('Quality Control', 50000, 5),
@@ -49,6 +49,7 @@ INSERT INTO employee (first_name, last_name, role_id) values
 ('Oscar', 'Martinez', 16),
 ('Meredith', 'Palmer', 17);
 
+-- Set Managers --
 UPDATE employee SET manager_id = 2 WHERE id = 1;
 UPDATE employee SET manager_id = 3 WHERE id = 4;
 UPDATE employee SET manager_id = 12 WHERE id = 11;

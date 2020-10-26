@@ -89,50 +89,56 @@ function addEmployee() {
             {
                 name: "firstName",
                 type: "input",
-                message: "What is the employee's first name?"
+                message: "What is the employee's first name?",
             },
             {
                 name: "lastName",
                 type: "input",
-                message: "What is the employee's last name?"
+                message: "What is the employee's last name?",
             },
             {
                 name: "title",
                 type: "input",
-                message: "What is the employee's title?"
+                message: "What is the employee's title?",
+            },
+            {
+                name: "salary",
+                type: "input",
+                message: "What is the employee's salary?",
             },
             {
                 name: "department",
                 type: "list",
                 message: "What is the employee's department?",
                 choices:
-                [
-                    "Management",
-                    "Human Resources",
-                    "Sales",
-                    "Accounting",
-                    "Product Oversight",
-                    "Reception",
-                    "Warehouse",
-                    "Temp"
-                ]
+                    [
+                        "Management",
+                        "Human Resources",
+                        "Sales",
+                        "Accounting",
+                        "Product Oversight",
+                        "Reception",
+                        "Warehouse",
+                        "Temp"
+                    ]
             },
-            {
-                name: "salary",
-                type: "input",
-                message: "What is the employee's salary?"
-            }
         ]).then(function (answer) {
             connection.query(
                 "INSERT INTO employee SET ?",
                 {
                     first_name: answer.firstName,
                     last_name: answer.lastName,
+                },
+                "INSERT INTO role SET ?",
+                {
                     title: answer.title,
-                    department: answer.department,
                     salary: answer.salary,
-                }
-                , function (err) {
+                },
+                "INSERT INTO department SET ?",
+                {
+                    department: answer.department,
+                },
+                function (err) {
                     startApp();
                 }
             );
