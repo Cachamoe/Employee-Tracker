@@ -17,7 +17,7 @@ connection.connect(function (err) {
     startApp();
 });
 
-// Function for starting application6
+// Function for starting application
 
 function startApp() {
     inquirer
@@ -66,16 +66,21 @@ function startApp() {
 }
 
 function viewEmployees() {
-    let query = "SELECT * FROM employee";
+    let query = `
+    SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name department, CONCAT (employee2.first_name, " ", employee2.last_name) manager
+    FROM employee
+    LEFT JOIN role
+        ON employee.role_id = role.id
+    LEFT JOIN department
+        ON role.department_id = department.id
+    LEFT JOIN employee employee2
+        ON employee2.manager_id = employee.id
+        `;
     connection.query(query, function (err, res) {
-        let employeeList = [],
-        for (var i = 0; i < res.length; i++) {
-            employeeList.push(res[i].first_name, res[i].last_name),
-
-                console.table([employeeList]);
-        }
+        console.log("\n\n")
+        console.table(res)
+        startApp();
     });
-    startApp();
 }
 
 function addEmployee() {
@@ -90,6 +95,32 @@ function addEmployee() {
                 name: "lastName",
                 type: "input",
                 message: "What is the employee's last name?"
+            },
+            {
+                name: "title",
+                type: "input",
+                message: "What is the employee's title?"
+            },
+            {
+                name: "department",
+                type: "list",
+                message: "What is the employee's department?",
+                choices:
+                [
+                    "Management",
+                    "Human Resources",
+                    "Sales",
+                    "Accounting",
+                    "Product Oversight",
+                    "Reception",
+                    "Warehouse",
+                    "Temp"
+                ]
+            },
+            {
+                name: "salary",
+                type: "input",
+                message: "What is the employee's salary?"
             }
         ]).then(function (answer) {
             connection.query(
@@ -97,10 +128,15 @@ function addEmployee() {
                 {
                     first_name: answer.firstName,
                     last_name: answer.lastName,
+                    title: answer.title,
+                    department: answer.department,
+                    salary: answer.salary,
+                }
+                , function (err) {
+                    startApp();
                 }
             );
         });
-    startApp();
 }
 
 function updateRole() {
@@ -111,14 +147,10 @@ function updateRole() {
 function viewDepartments() {
     let query = "SELECT * FROM department";
     connection.query(query, function (err, res) {
-        let departmentList = [],
-        for (var i = 0; i < res.length; i++) {
-            departmentList.push(res[i].name),
-
-                console.table([departmentList]);
-        }
+        console.log("\n\n")
+        console.table(res)
+        startApp();
     });
-    startApp();
 }
 
 function addDepartment() {
@@ -135,22 +167,20 @@ function addDepartment() {
                 {
                     name: answer.departmentName,
                 }
+                , function (err) {
+                    startApp();
+                }
             );
         });
-    startApp();
 }
 
 function viewRoles() {
     let query = "SELECT * FROM roles";
     connection.query(query, function (err, res) {
-        let roleList = [],
-        for (var i = 0; i < res.length; i++) {
-            roleList.push(res[i].title, res[i].salary),
-
-                console.table([roleList]);
-        }
+        console.log("\n\n")
+        console.table(res)
+        startApp();
     });
-    startApp();
 }
 
 function addRole() {
@@ -172,8 +202,10 @@ function addRole() {
                 {
                     title: answer.title,
                     salary: answer.salary,
-                },
+                }
+                , function (err) {
+                    startApp();
+                }
             );
         });
-    startApp();
 }

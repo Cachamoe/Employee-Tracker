@@ -1,56 +1,57 @@
+-- Data for department table --
+INSERT INTO department (name) values 
+('Management'),
+('Human Resources'),
+('Sales'),
+('Accounting'),
+('Product Oversight'),
+('Reception'),
+('Warehouse'),
+('Temp');
 
-INSERT INTO employee (first_name, last_name) values ('Michael', 'Scott');
-INSERT INTO employee (first_name, last_name) values ('Jim', 'Halpert');
-INSERT INTO employee (first_name, last_name) values ('Pam', 'Beesly');
-INSERT INTO employee (first_name, last_name) values ('Dwight', 'Schrute');
-INSERT INTO employee (first_name, last_name) values ('Angela', 'Martin');
-INSERT INTO employee (first_name, last_name) values ('Kevin', 'Malone');
-INSERT INTO employee (first_name, last_name) values ('Creed', 'Bratton');
-INSERT INTO employee (first_name, last_name) values ('Erin', 'Hannon');
-INSERT INTO employee (first_name, last_name) values ('Andy', 'Bernard');
-INSERT INTO employee (first_name, last_name) values ('Stanley', 'Hudson');
-INSERT INTO employee (first_name, last_name) values ('Toby', 'Flenderson');
-INSERT INTO employee (first_name, last_name) values ('Ryan', 'Howard');
-INSERT INTO employee (first_name, last_name) values ('Kelly', 'Kapoor');
-INSERT INTO employee (first_name, last_name) values ('Darryl', 'Philbin');
-INSERT INTO employee (first_name, last_name) values ('Phyllis', 'Vance');
-INSERT INTO employee (first_name, last_name) values ('Oscar', 'Martinez');
-INSERT INTO employee (first_name, last_name) values ('Meredith', 'Palmer');
+-- Data for role table --
+INSERT INTO role (title, salary, department_id) values 
+('Regional Manager', 75000, 1),
+('Sales', 55000, 3),
+('Secretary', 45000, 6),
+('Assistant Regional Manager', 60000, 1),
+('Lead Accountant', 60000, 4),
+('Accountant', 55000, 4),
+('Quality Control', 50000, 5),
+('Receptionist', 45000, 6),
+('Sales', 52000, 3),
+('Sales', 55000, 3),
+('Human Relations', 60000, 2),
+('Temp', 25000, 8),
+('Customer Relations', 47000, 2),
+('Warehouse', 40000, 7),
+('Sales', 55000, 3),
+('Lead Accountant', 60000, 4),
+('Supplier Relations', 58000, 5);
+
+-- Data for employee table --
+INSERT INTO employee (first_name, last_name, role_id) values 
+('Michael', 'Scott', 1), 
+('Jim', 'Halpert', 2), 
+('Pam', 'Beesly', 3), 
+('Dwight', 'Schrute', 4), 
+('Angela', 'Martin', 5),
+('Kevin', 'Malone', 6),
+('Creed', 'Bratton', 7),
+('Erin', 'Hannon', 8),
+('Andy', 'Bernard', 9),
+('Stanley', 'Hudson', 10),
+('Toby', 'Flenderson', 11),
+('Ryan', 'Howard', 12),
+('Kelly', 'Kapoor', 13),
+('Darryl', 'Philbin', 14),
+('Phyllis', 'Vance', 15),
+('Oscar', 'Martinez', 16),
+('Meredith', 'Palmer', 17);
+
+UPDATE employee SET manager_id = 2 WHERE id = 1;
+UPDATE employee SET manager_id = 3 WHERE id = 4;
+UPDATE employee SET manager_id = 12 WHERE id = 11;
 
 
-INSERT INTO role (title, salary) values ('Regional Manager', 75000);
-INSERT INTO role (title, salary) values ('Sales', 55000);
-INSERT INTO role (title, salary) values ('Secretary', 45000);
-INSERT INTO role (title, salary) values ('Assistant Regional Manager', 60000);
-INSERT INTO role (title, salary) values ('Lead Accountant', 60000);
-INSERT INTO role (title, salary) values ('Accountant', 55000);
-INSERT INTO role (title, salary) values ('Quality Control', 50000);
-INSERT INTO role (title, salary) values ('Receptionist', 45000);
-INSERT INTO role (title, salary) values ('Sales', 52000);
-INSERT INTO role (title, salary) values ('Sales', 55000);
-INSERT INTO role (title, salary) values ('Human Relations', 60000);
-INSERT INTO role (title, salary) values ('Temp', 25000);
-INSERT INTO role (title, salary) values ('Customer Relations', 47000);
-INSERT INTO role (title, salary) values ('Warehouse', 40000);
-INSERT INTO role (title, salary) values ('Sales', 55000);
-INSERT INTO role (title, salary) values ('Lead Accountant', 60000);
-INSERT INTO role (title, salary) values ('Supplier Relations', 58000);
 
-
-INSERT INTO department (name) values ('Management');
-INSERT INTO department (name) values ('Sales');
-INSERT INTO department (name) values ('Reception');
-INSERT INTO department (name) values ('Sales');
-INSERT INTO department (name) values ('Accounting');
-INSERT INTO department (name) values ('Accounting');
-INSERT INTO department (name) values ('Product Oversight');
-INSERT INTO department (name) values ('Reception');
-INSERT INTO department (name) values ('Sales');
-INSERT INTO department (name) values ('Sales');
-INSERT INTO department (name) values ('Human Resources');
-INSERT INTO department (name) values ('Temp');
-INSERT INTO department (name) values ('Human Resources');
-INSERT INTO department (name) values ('Warehouse');
-INSERT INTO department (name) values ('Sales');
-INSERT INTO department (name) values ('Accounting');
-INSERT INTO department (name) values ('Product Oversight');

@@ -27,11 +27,3 @@ CREATE TABLE employee (
     FOREIGN KEY (role_id) REFERENCES role (id),
     FOREIGN KEY (manager_id) REFERENCES employee (id)
 );
-
-
-SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name,
-FROM ((employee
-INNER JOIN role
-    ON employee.id = role.employee.id)
-INNER JOIN department
-    ON department.id = role.department_id);
