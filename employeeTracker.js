@@ -18,7 +18,6 @@ connection.connect(function (err) {
 });
 
 // Function for starting application
-
 function startApp() {
     inquirer
         .prompt({
@@ -139,17 +138,7 @@ function addEmployee() {
                     ]
             },
         ]).then(function (answer) {
-            let query = `
-        SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name department, CONCAT (employee2.first_name, " ", employee2.last_name) manager
-        FROM employee
-        LEFT JOIN role
-            ON employee.role_id = role.id
-        LEFT JOIN department
-            ON role.department_id = department.id
-        LEFT JOIN employee employee2
-            ON employee2.manager_id = employee.id
-        `;
-            connection.query(query, function (err, res) {
+            connection.query(
                 [
                     "INSERT INTO employee SET ?",
                     {
@@ -165,14 +154,10 @@ function addEmployee() {
                     {
                         department: answer.department,
                     },
-                ]
-                console.log("\n\n"),
-                    console.table(res),
-                    startApp();
-            });
+                ]);
+            startApp();
         });
 }
-
 
 function updateRole() {
     inquirer
@@ -183,23 +168,11 @@ function updateRole() {
                 message: "What is role you would like to update?",
                 choices:
                     [
-                        "Regional Manager",
-                        "Assistant Regional Manager",
-                        "Human Relations",
-                        "Lead Accountant",
-                        "Accountant",
-                        "Sales",
-                        "Quality Control",
-                        "Customer Relations",
-                        "Supplier Relations",
-                        "Secretary",
-                        "Receptionist",
-                        "Warehouse",
-                        "Temp"
+
                     ]
             },
         ]).then(function (answer) {
-            connection.query(query, function (err, res) {
+            connection.query(
                 (
                     "UPDATE FROM role ?",
                     {
@@ -210,12 +183,9 @@ function updateRole() {
                         startApp();
                     }
                 )
-            }
-            )
+            );
         });
 }
-
-
 
 function viewDepartments() {
     let query = "SELECT * FROM department";
