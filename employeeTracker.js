@@ -8,7 +8,8 @@ let connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: "yourRootPassword",
-    database: "employeeTracker_db"
+    database: "employeeTracker_db",
+    multipleStatements: true
 });
 
 
@@ -21,6 +22,7 @@ connection.connect(function (err) {
 
 // Function for starting application
 function startApp() {
+    console.log("Welcome to the Employee Manager!");
     inquirer
         .prompt({
             name: "business",
@@ -144,22 +146,21 @@ function addEmployee() {
                         first_name: answer.firstName,
                         last_name: answer.lastName,
                     },
-                ]),
-            connection.query(
+                ],
                 [
                     "INSERT INTO role SET ?",
                     {
                         title: answer.title,
                         salary: answer.salary,
                     },
-                ]),
-            connection.query(
+                ],       
                 [
                     "INSERT INTO department SET ?",
                     {
                         department: answer.department,
                     },
-                ]),
+                ]
+            )
             startApp();
         });
 }
@@ -167,30 +168,53 @@ function addEmployee() {
 
 function updateRole() {
     inquirer
-        .prompt([
+    .prompt([
+        {
+            name: "id",
+            type: "input",
+            massage: "What is the employee id?"
+        },
+        {
+            name: "title",
+            type: "list",
+            message: "What is the new role?",
+            choices:
+            [
+                "Regional Manager",
+                "Assistant Regional Manager",
+                "Human Relations",
+                "Lead Accountant",
+                "Accountant",
+                "Sales",
+                "Quality Control",
+                "Customer Relations",
+                "Supplier Relations",
+                "Secretary",
+                "Receptionist",
+                "Warehouse",
+                "Temp",
+            ]
+        },
+        {
+            name: "salary",
+            type: "input",
+            message: "What is the employee's new salary?"
+        }
+    ]).then(function (answer) {
+        connection.query(
+            "UPDATE role SET ? WHERE id = ?",
             {
-                name: "employee",
-                type: "list",
-                message: "What employee would you like to update?",
-                choices:
-                    [
-                    
-                    ]
+                title: answer.title,
+                salary: answer.salary,
             },
-        ]).then(function (answer) {
-            connection.query(
-                (
-                    "UPDATE FROM employee ?",
-                    {
-                        title: answer.title,
-                        last_name: answer.lastName,
-                    },
-                    function (err) {
-                        startApp();
-                    }
-                )
-            );
-        });
+            {
+                id: answer.id,
+            }, 
+            function (err) {
+                startApp();
+            }
+        );
+    });
 }
 
 
@@ -248,7 +272,7 @@ function addRole() {
                 name: "salary",
                 type: "input",
                 message: "What is the role salary?"
-            },
+            }
         ]).then(function (answer) {
             connection.query(
                 "INSERT INTO role SET ?",
