@@ -3,6 +3,8 @@
 ## Overview
 This is an application that can be used to view and manage a company's employees!
 
+Here's a link to the demonstration video: []
+
 ## Application Features
 1) Add departments, roles, and employees
 2) View departments, roles, and employees
