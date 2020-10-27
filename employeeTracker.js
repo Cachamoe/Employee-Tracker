@@ -11,11 +11,13 @@ let connection = mysql.createConnection({
     database: "employeeTracker_db"
 });
 
+
 // Connect to mysql server and sql database
 connection.connect(function (err) {
     if (err) throw err;
     startApp();
 });
+
 
 // Function for starting application
 function startApp() {
@@ -64,6 +66,7 @@ function startApp() {
         });
 }
 
+
 function viewEmployees() {
     let query = `
     SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name department, CONCAT (employee2.first_name, " ", employee2.last_name) manager
@@ -82,6 +85,7 @@ function viewEmployees() {
     });
 }
 
+
 function addEmployee() {
     inquirer
         .prompt([
@@ -94,32 +98,6 @@ function addEmployee() {
                 name: "lastName",
                 type: "input",
                 message: "What is the employee's last name?",
-            },
-            {
-                name: "title",
-                type: "list",
-                message: "What is the employee's title?",
-                choices:
-                    [
-                        "Regional Manager",
-                        "Assistant Regional Manager",
-                        "Human Relations",
-                        "Lead Accountant",
-                        "Accountant",
-                        "Sales",
-                        "Quality Control",
-                        "Customer Relations",
-                        "Supplier Relations",
-                        "Secretary",
-                        "Receptionist",
-                        "Warehouse",
-                        "Temp"
-                    ]
-            },
-            {
-                name: "salary",
-                type: "input",
-                message: "What is the employee's salary?",
             },
             {
                 name: "department",
@@ -137,6 +115,27 @@ function addEmployee() {
                         "Temp"
                     ]
             },
+            {
+                name: "role",
+                type: "list",
+                message: "What is the employee's role?",
+                choices:
+                    [
+                        "Regional Manager",
+                        "Assistant Regional Manager",
+                        "Human Relations",
+                        "Lead Accountant",
+                        "Accountant",
+                        "Sales",
+                        "Quality Control",
+                        "Customer Relations",
+                        "Supplier Relations",
+                        "Secretary",
+                        "Receptionist",
+                        "Warehouse",
+                        "Temp",
+                    ]
+            },
         ]).then(function (answer) {
             connection.query(
                 [
@@ -145,36 +144,43 @@ function addEmployee() {
                         first_name: answer.firstName,
                         last_name: answer.lastName,
                     },
+                ]),
+            connection.query(
+                [
                     "INSERT INTO role SET ?",
                     {
                         title: answer.title,
                         salary: answer.salary,
                     },
+                ]),
+            connection.query(
+                [
                     "INSERT INTO department SET ?",
                     {
                         department: answer.department,
                     },
-                ]);
+                ]),
             startApp();
         });
 }
+
 
 function updateRole() {
     inquirer
         .prompt([
             {
-                name: "role",
+                name: "employee",
                 type: "list",
-                message: "What is role you would like to update?",
+                message: "What employee would you like to update?",
                 choices:
                     [
-
+                    
                     ]
             },
         ]).then(function (answer) {
             connection.query(
                 (
-                    "UPDATE FROM role ?",
+                    "UPDATE FROM employee ?",
                     {
                         title: answer.title,
                         last_name: answer.lastName,
@@ -187,6 +193,7 @@ function updateRole() {
         });
 }
 
+
 function viewDepartments() {
     let query = "SELECT * FROM department";
     connection.query(query, function (err, res) {
@@ -195,6 +202,7 @@ function viewDepartments() {
         startApp();
     });
 }
+
 
 function addDepartment() {
     inquirer
@@ -217,6 +225,7 @@ function addDepartment() {
         });
 }
 
+
 function viewRoles() {
     let query = "SELECT * FROM role";
     connection.query(query, function (err, res) {
@@ -225,6 +234,7 @@ function viewRoles() {
         startApp();
     });
 }
+
 
 function addRole() {
     inquirer
@@ -238,7 +248,7 @@ function addRole() {
                 name: "salary",
                 type: "input",
                 message: "What is the role salary?"
-            }
+            },
         ]).then(function (answer) {
             connection.query(
                 "INSERT INTO role SET ?",
