@@ -1,5 +1,5 @@
 # Employee-Tracker
-![]()
+![](https://github.com/Cachamoe/Employee-Tracker/blob/main/Assets/Screen%20Shot%202020-10-27%20at%2011.37.41%20AM.png)
 ## Overview
 This is an application that can be used to view and manage a company's employees!
 
