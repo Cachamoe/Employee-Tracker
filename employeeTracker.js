@@ -148,16 +148,15 @@ function addEmployee() {
                     },
                 ],
                 [
-                    "INSERT INTO role SET ?",
+                    "INSERT INTO department SET ?",
                     {
-                        title: answer.title,
-                        salary: answer.salary,
+                        title: answer.department,
                     },
                 ],       
                 [
-                    "INSERT INTO department SET ?",
+                    "INSERT INTO role SET ?",
                     {
-                        department: answer.department,
+                        role: answer.role,
                     },
                 ]
             )
