@@ -2,6 +2,7 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
 
+
 // Create the connection information for the sql database
 let connection = mysql.createConnection({
     host: "localhost",
@@ -22,7 +23,7 @@ connection.connect(function (err) {
 
 // Function for starting application
 function startApp() {
-    console.log("Welcome to the Employee Manager!");
+    console.log("\n Welcome to the Employee Manager! \n");
     inquirer
         .prompt({
             name: "business",
@@ -68,6 +69,13 @@ function startApp() {
         });
 }
 
+function getRoles() {
+    connection.query("SElECT * FROM role")
+}
+
+function getManager() {
+    connection.query("SELECT * FROM employee")
+}
 
 function viewEmployees() {
     let query = `
@@ -102,63 +110,35 @@ function addEmployee() {
                 message: "What is the employee's last name?",
             },
             {
-                name: "department",
-                type: "list",
-                message: "What is the employee's department?",
-                choices:
-                    [
-                        "Management",
-                        "Human Resources",
-                        "Sales",
-                        "Accounting",
-                        "Product Oversight",
-                        "Reception",
-                        "Warehouse",
-                        "Temp"
-                    ]
-            },
-            {
                 name: "role",
                 type: "list",
                 message: "What is the employee's role?",
                 choices:
-                    [
-                        "Regional Manager",
-                        "Assistant Regional Manager",
-                        "Human Relations",
-                        "Lead Accountant",
-                        "Accountant",
-                        "Sales",
-                        "Quality Control",
-                        "Customer Relations",
-                        "Supplier Relations",
-                        "Secretary",
-                        "Receptionist",
-                        "Warehouse",
-                        "Temp",
-                    ]
+                [
+                    getRoles(),
+                ]
+            },
+            {
+                name: "manager",
+                type: "list",
+                message: "Who is the employee's manager?",
+                choices: 
+                [
+                    getManager(),
+                    "None",
+                ]
             },
         ]).then(function (answer) {
-            connection.query(
-                [
-                    "INSERT INTO employee SET ?",
+            connection.query("INSERT INTO employee SET ?",
+                [ 
                     {
                         first_name: answer.firstName,
                         last_name: answer.lastName,
+                        role: answer.role,
+                        manager: answer.manager
+                        
                     },
                 ],
-                [
-                    "INSERT INTO department SET ?",
-                    {
-                        title: answer.department,
-                    },
-                ],       
-                [
-                    "INSERT INTO role SET ?",
-                    {
-                        role: answer.role,
-                    },
-                ]
             )
             startApp();
         });
@@ -171,27 +151,15 @@ function updateRole() {
         {
             name: "id",
             type: "input",
-            massage: "What is the employee id?"
+            message: "What is the employee's current role id?"
         },
         {
             name: "title",
             type: "list",
-            message: "What is the new role?",
+            message: "What is the employee's new role?",
             choices:
             [
-                "Regional Manager",
-                "Assistant Regional Manager",
-                "Human Relations",
-                "Lead Accountant",
-                "Accountant",
-                "Sales",
-                "Quality Control",
-                "Customer Relations",
-                "Supplier Relations",
-                "Secretary",
-                "Receptionist",
-                "Warehouse",
-                "Temp",
+                getRoles(),
             ]
         },
         {
@@ -199,16 +167,13 @@ function updateRole() {
             type: "input",
             message: "What is the employee's new salary?"
         }
-    ]).then(function (answer) {
-        connection.query(
-            "UPDATE role SET ? WHERE id = ?",
-            {
-                title: answer.title,
-                salary: answer.salary,
-            },
-            {
-                id: answer.id,
-            }, 
+    ]).then(function (answer) {  
+        connection.query("UPDATE role SET title = ?, salary = ? WHERE id = ?",
+            [
+                answer.title,
+                answer.salary,
+                answer.id,
+            ], 
             function (err) {
                 startApp();
             }
