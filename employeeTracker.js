@@ -69,13 +69,6 @@ function startApp() {
         });
 }
 
-function getRoles() {
-    connection.query("SElECT * FROM role")
-}
-
-function getManager() {
-    connection.query("SELECT * FROM employee")
-}
 
 function viewEmployees() {
     let query = `
@@ -96,88 +89,93 @@ function viewEmployees() {
 }
 
 
-function addEmployee() {
-    inquirer
-        .prompt([
-            {
-                name: "firstName",
-                type: "input",
-                message: "What is the employee's first name?",
-            },
-            {
-                name: "lastName",
-                type: "input",
-                message: "What is the employee's last name?",
-            },
-            {
-                name: "role",
-                type: "list",
-                message: "What is the employee's role?",
-                choices:
-                [
-                    getRoles(),
-                ]
-            },
-            {
-                name: "manager",
-                type: "list",
-                message: "Who is the employee's manager?",
-                choices: 
-                [
-                    getManager(),
-                    "None",
-                ]
-            },
-        ]).then(function (answer) {
-            connection.query("INSERT INTO employee SET ?",
-                [ 
+async function addEmployee() {
+    connection.query("SElECT * FROM role", function (err, res) {
+        let roles = res;
+        let roleArray = res.map(role => role.title);
+        connection.query("SELECT * FROM employee", function (err, res) {
+            let employees = res;
+            let employeeArray = res.map(employee => `${employee.first_name} ${employee.last_name}`)
+            inquirer
+                .prompt([
                     {
-                        first_name: answer.firstName,
-                        last_name: answer.lastName,
-                        role: answer.role,
-                        manager: answer.manager
-                        
+                        name: "firstName",
+                        type: "input",
+                        message: "What is the employee's first name?",
                     },
-                ],
-            )
-            startApp();
+                    {
+                        name: "lastName",
+                        type: "input",
+                        message: "What is the employee's last name?",
+                    },
+                    {
+                        name: "role",
+                        type: "list",
+                        message: "What is the employee's role?",
+                        choices: roleArray
+                    },
+                    {
+                        name: "manager",
+                        type: "list",
+                        message: "Who is the employee's manager?",
+                        choices: employeeArray
+                    },
+                ]).then(function (answer) {
+                    connection.query("INSERT INTO employee SET ?",
+                        [
+                            {
+                                first_name: answer.firstName,
+                                last_name: answer.lastName,
+                                manager_id: answer.id
+                            },
+                        ],
+                    )
+                    connection.query("INSERT INTO role SET ?",
+                        [
+                            {
+                                title: answer.role
+                            }
+                        ],
+                    )
+                    startApp();
+                });
         });
+    });
 }
 
-
-function updateRole() {
-    inquirer
-    .prompt([
-        {
-            name: "id",
-            type: "input",
-            message: "What is the employee's current role id?"
-        },
-        {
-            name: "title",
-            type: "list",
-            message: "What is the employee's new role?",
-            choices:
-            [
-                getRoles(),
-            ]
-        },
-        {
-            name: "salary",
-            type: "input",
-            message: "What is the employee's new salary?"
-        }
-    ]).then(function (answer) {  
-        connection.query("UPDATE role SET title = ?, salary = ? WHERE id = ?",
-            [
-                answer.title,
-                answer.salary,
-                answer.id,
-            ], 
-            function (err) {
-                startApp();
-            }
-        );
+async function updateRole() {
+    connection.query("SElECT * FROM role", function (err, res) {
+        let roles = res;
+        let roleArray = res.map(role => role.title);
+        connection.query("SELECT * FROM employee", function (err, res) {
+            let employees = res;
+            let employeeArray = res.map(employee => `${employee.first_name} ${employee.last_name}`)
+            inquirer
+                .prompt([
+                    {
+                        name: "firstLast",
+                        type: "list",
+                        message: "Who is the employee you would like to update?",
+                        choices: employeeArray,
+                    },
+                    {
+                        name: "title",
+                        type: "list",
+                        message: "What is the employee's new role?",
+                        choices: roleArray,
+                    },
+                ]).then(function (answer) {
+                    connection.query("UPDATE role SET title = ? WHERE id = ?",
+                        [
+                            answer.title,
+                            answer.id,
+                        ],
+                        function (err) {
+                            startApp();
+                        }
+                    );
+                });
+        });
     });
 }
 
