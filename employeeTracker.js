@@ -72,14 +72,14 @@ function startApp() {
 
 function viewEmployees() {
     let query = `
-    SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name department, CONCAT (employee2.first_name, " ", employee2.last_name) manager
+    SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name department, CONCAT(employee2.first_name, " ", employee2.last_name) manager
     FROM employee
     LEFT JOIN role
         ON employee.role_id = role.id
     LEFT JOIN department
         ON role.department_id = department.id
     LEFT JOIN employee employee2
-        ON employee2.manager_id = employee.id
+        ON employee.manager_id = employee2.id
         `;
     connection.query(query, function (err, res) {
         console.log("\n\n")
@@ -121,23 +121,20 @@ async function addEmployee() {
                         choices: employeeArray
                     },
                 ]).then(function (answer) {
-                    connection.query("INSERT INTO employee SET ?",
+                    let role = roles.find(role => role.title === answer.role)
+                    let manager = employees.find(employee => (employee.first_name + " " + employee.last_name) === answer.manager)
+                    let statement = connection.query("INSERT INTO employee SET ?",
                         [
                             {
                                 first_name: answer.firstName,
                                 last_name: answer.lastName,
-                                manager_id: answer.id
+                                role_id: role.id,
+                                manager_id: manager.id
                             },
                         ],
-                    )
-                    connection.query("INSERT INTO role SET ?",
-                        [
-                            {
-                                title: answer.role
-                            }
-                        ],
-                    )
-                    startApp();
+                        function (err, res) {
+                            startApp();
+                        });
                 });
         });
     });
@@ -159,16 +156,18 @@ async function updateRole() {
                         choices: employeeArray,
                     },
                     {
-                        name: "title",
+                        name: "role",
                         type: "list",
                         message: "What is the employee's new role?",
                         choices: roleArray,
                     },
                 ]).then(function (answer) {
-                    connection.query("UPDATE role SET title = ? WHERE id = ?",
+                    let role = roles.find(role => role.title === answer.role);
+                    let employee = employees.find(employee => (employee.first_name + " " + employee.last_name) === answer.firstLast);
+                    connection.query("UPDATE employee SET role_id = ? WHERE id = ?",
                         [
-                            answer.title,
-                            answer.id,
+                            role.id,
+                            employee.id
                         ],
                         function (err) {
                             startApp();
