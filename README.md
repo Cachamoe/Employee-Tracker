@@ -8,7 +8,7 @@ This is an application that can be used to view and manage a company's employees
 2) View departments, roles, and employees
 3) Update employee roles
 
-## Programs 
+## Technologies 
 Javascript, MySQL, Node.js, JSON, Terminal
 
 ## License 
